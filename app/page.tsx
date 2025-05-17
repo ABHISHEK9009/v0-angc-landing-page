@@ -1,26 +1,35 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import Link from "next/link"
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, MessageCircle } from "lucide-react"
-import CountUp from "react-countup"
-import Particles, { initParticlesEngine } from "@tsparticles/react"
-import { loadSlim } from "@tsparticles/slim"
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import Link from "next/link";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  MessageCircle,
+} from "lucide-react";
+import CountUp from "react-countup";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 export default function LandingPage() {
-  const [init, setInit] = useState(false)
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      await loadSlim(engine)
+      await loadSlim(engine);
     }).then(() => {
-      setInit(true)
-    })
-  }, [])
+      setInit(true);
+    });
+  }, []);
 
-  const { scrollY } = useScroll()
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
+  // Removing the scrollY and heroOpacity transform
+  // const { scrollY } = useScroll()
+  // const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white">
@@ -62,7 +71,8 @@ export default function LandingPage() {
 
         <motion.div
           className="container max-w-5xl mx-auto flex flex-col items-center text-center gap-8 z-10"
-          style={{ opacity: heroOpacity }}
+          // Removing the opacity style that was tied to scroll
+          // style={{ opacity: heroOpacity }}
         >
           <motion.div
             initial={{ y: -50, opacity: 0 }}
@@ -94,7 +104,8 @@ export default function LandingPage() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-gray-300 max-w-3xl"
           >
-            Helping startups and industries with licensing, subsidies, finance & growth strategies.
+            Helping startups and industries with licensing, subsidies, finance &
+            growth strategies.
           </motion.p>
 
           {/* Contact Link Boxes */}
@@ -104,6 +115,37 @@ export default function LandingPage() {
             transition={{ delay: 0.9, duration: 0.8 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-3xl mt-4"
           >
+            <ContactLinkBox
+              icon={<Facebook className="w-5 h-5" />}
+              title="Facebook"
+              subtitle="Join Our Page"
+              href="https://www.facebook.com/profile.php?id=61575913509298"
+              color="from-[#1D4ED8] to-[#1E3A8A]"
+            />
+
+            <ContactLinkBox
+              icon={<Instagram className="w-5 h-5" />}
+              title="Instagram"
+              subtitle="Follow Us"
+              href="https://www.instagram.com/angcgroupindia/"
+              color="from-[#9333EA] to-[#7E22CE]"
+            />
+
+            <ContactLinkBox
+              icon={<Linkedin className="w-5 h-5" />}
+              title="LinkedIn"
+              subtitle="Connect with Us"
+              href="https://in.linkedin.com/company/angcgroup"
+              color="from-[#0A66C2] to-[#0284C7]"
+            />
+            <ContactLinkBox
+              icon={<MessageCircle className="w-5 h-5" />}
+              title="WhatsApp Now"
+              subtitle="Direct Message"
+              href="https://wa.me/919111777571"
+              color="from-[#22D3EE] to-[#06B6D4]"
+            />
+
             <ContactLinkBox
               icon={<Phone className="w-5 h-5" />}
               title="Call Now"
@@ -118,14 +160,6 @@ export default function LandingPage() {
               subtitle="+91 9475655555"
               href="tel:+919475655555"
               color="from-[#6366F1] to-[#4F46E5]"
-            />
-
-            <ContactLinkBox
-              icon={<MessageCircle className="w-5 h-5" />}
-              title="WhatsApp Now"
-              subtitle="Direct Message"
-              href="https://wa.me/919111777571"
-              color="from-[#22D3EE] to-[#06B6D4]"
             />
 
             <ContactLinkBox
@@ -166,6 +200,7 @@ export default function LandingPage() {
             </Link>
           </motion.div>
 
+          {/* Removing the scroll to explore element
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.7 }}
@@ -187,6 +222,7 @@ export default function LandingPage() {
               />
             </div>
           </motion.div>
+          */}
         </motion.div>
       </section>
 
@@ -199,22 +235,23 @@ export default function LandingPage() {
       {/* How We Assist You */}
       <AssistanceSection />
 
-      {/* Client Testimonials */}
-      <TestimonialsSection />
-
-      {/* Trusted Associates */}
-      <TrustedAssociatesSection />
-
       {/* CTA Section */}
       <CTASection />
 
       {/* Footer */}
       <Footer />
     </main>
-  )
+  );
 }
 
-function ContactLinkBox({ icon, title, subtitle, href, color, className = "" }) {
+function ContactLinkBox({
+  icon,
+  title,
+  subtitle,
+  href,
+  color,
+  className = "",
+}) {
   return (
     <Link
       href={href}
@@ -232,12 +269,12 @@ function ContactLinkBox({ icon, title, subtitle, href, color, className = "" }) 
         </div>
       </div>
     </Link>
-  )
+  );
 }
 
 function AboutSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.3 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
 
   return (
     <section ref={ref} className="py-20 px-4 relative overflow-hidden">
@@ -269,9 +306,10 @@ function AboutSection() {
             About <span className="text-[#3B82F6]">ANGC</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            ANGC is a next-generation business consulting firm offering 360-degree solutions in industrial licensing,
-            government subsidies, financial advisory, compliance, startup support, and more. Over 1000+ MSME and
-            industrial clients served across India.
+            ANGC is a next-generation business consulting firm offering
+            360-degree solutions in industrial licensing, government subsidies,
+            financial advisory, compliance, startup support, and more. Over
+            1000+ MSME and industrial clients served across India.
           </p>
         </motion.div>
 
@@ -311,7 +349,7 @@ function AboutSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function CounterCard({ isInView, delay, icon, value, label, description }) {
@@ -336,53 +374,64 @@ function CounterCard({ isInView, delay, icon, value, label, description }) {
       <h4 className="text-xl font-semibold mb-2">{label}</h4>
       <p className="text-gray-400">{description}</p>
     </motion.div>
-  )
+  );
 }
 
 function ServicesSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.2 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
 
   const services = [
     {
       title: "Industrial Permissions & Licensing",
-      description: "Comprehensive assistance for all industrial permissions and licensing requirements",
+      description:
+        "Comprehensive assistance for all industrial permissions and licensing requirements",
       icon: "🏭",
     },
     {
       title: "Business Finance (Bank/NBFC Loans)",
-      description: "Expert guidance on securing business financing through banks and NBFCs",
+      description:
+        "Expert guidance on securing business financing through banks and NBFCs",
       icon: "💰",
     },
     {
       title: "Government Subsidies & Grants",
-      description: "Assistance in identifying and applying for government subsidies and grants",
+      description:
+        "Assistance in identifying and applying for government subsidies and grants",
       icon: "🏛️",
     },
     {
       title: "Industrial Land Assistance",
-      description: "Support in acquiring and developing industrial land for your business",
+      description:
+        "Support in acquiring and developing industrial land for your business",
       icon: "🏞️",
     },
     {
       title: "Project Report & Compliance",
-      description: "Detailed project reports and compliance management services",
+      description:
+        "Detailed project reports and compliance management services",
       icon: "📊",
     },
     {
       title: "Market Linkages (GEM, Exports)",
-      description: "Connecting businesses with market opportunities through GEM and exports",
+      description:
+        "Connecting businesses with market opportunities through GEM and exports",
       icon: "🌐",
     },
     {
       title: "Startup Support (DPIIT, Pitch Decks)",
-      description: "Comprehensive support for startups including DPIIT registration and pitch decks",
+      description:
+        "Comprehensive support for startups including DPIIT registration and pitch decks",
       icon: "🚀",
     },
-  ]
+  ];
 
   return (
-    <section id="services" ref={ref} className="py-20 px-4 bg-gradient-to-b from-[#1E293B] to-[#0F172A]">
+    <section
+      id="services"
+      ref={ref}
+      className="py-20 px-4 bg-gradient-to-b from-[#1E293B] to-[#0F172A]"
+    >
       <div className="container max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -394,7 +443,8 @@ function ServicesSection() {
             Our Core <span className="text-[#6366F1]">Services</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            Comprehensive business solutions tailored to your specific industry needs
+            Comprehensive business solutions tailored to your specific industry
+            needs
           </p>
         </motion.div>
 
@@ -412,7 +462,7 @@ function ServicesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function ServiceCard({ isInView, delay, icon, title, description }) {
@@ -425,46 +475,52 @@ function ServiceCard({ isInView, delay, icon, title, description }) {
       className="bg-white/5 backdrop-blur-md rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-[#6366F1]/10 group"
     >
       <div className="flex items-start gap-4">
-        <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{icon}</div>
+        <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
         <div>
           <h3 className="text-xl font-semibold mb-2 text-[#6366F1]">{title}</h3>
           <p className="text-gray-300">{description}</p>
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 function AssistanceSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.2 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
 
   const assistanceSteps = [
     {
       title: "Touchbase & Planning",
-      description: "Initial consultation to understand your business needs and develop a strategic plan",
+      description:
+        "Initial consultation to understand your business needs and develop a strategic plan",
       icon: "🤝",
       color: "from-[#3B82F6] to-[#2563EB]",
     },
     {
       title: "Documentation Help",
-      description: "Comprehensive assistance with all necessary documentation and paperwork",
+      description:
+        "Comprehensive assistance with all necessary documentation and paperwork",
       icon: "📄",
       color: "from-[#22D3EE] to-[#06B6D4]",
     },
     {
       title: "Permissions & Approvals",
-      description: "Expert guidance through the permissions and approvals process",
+      description:
+        "Expert guidance through the permissions and approvals process",
       icon: "✅",
       color: "from-[#6366F1] to-[#4F46E5]",
     },
     {
       title: "3-Year Handholding",
-      description: "Continuous support and guidance for three years to ensure business success",
+      description:
+        "Continuous support and guidance for three years to ensure business success",
       icon: "🔄",
       color: "from-[#EAB308] to-[#CA8A04]",
     },
-  ]
+  ];
 
   return (
     <section ref={ref} className="py-20 px-4 relative overflow-hidden">
@@ -495,7 +551,9 @@ function AssistanceSection() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             How We <span className="text-[#22D3EE]">Assist You</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">Our comprehensive approach to ensure your business success</p>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Our comprehensive approach to ensure your business success
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -513,7 +571,7 @@ function AssistanceSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function AssistanceCard({ isInView, delay, icon, title, description, color }) {
@@ -532,13 +590,13 @@ function AssistanceCard({ isInView, delay, icon, title, description, color }) {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 function TestimonialsSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.2 })
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const testimonials = [
     {
@@ -559,17 +617,20 @@ function TestimonialsSection() {
       name: "Amit Patel",
       position: "Director, GreenEnergy Systems",
     },
-  ]
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [testimonials.length])
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-gradient-to-b from-[#1E293B] to-[#0F172A]">
+    <section
+      ref={ref}
+      className="py-20 px-4 bg-gradient-to-b from-[#1E293B] to-[#0F172A]"
+    >
       <div className="container max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -580,7 +641,9 @@ function TestimonialsSection() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Client <span className="text-[#EAB308]">Testimonials</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">Hear what our clients have to say about our services</p>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Hear what our clients have to say about our services
+          </p>
         </motion.div>
 
         <div className="relative">
@@ -597,14 +660,18 @@ function TestimonialsSection() {
               className="bg-white/5 backdrop-blur-md rounded-2xl p-8 shadow-xl"
             >
               <div className="text-4xl text-[#EAB308] mb-4">"</div>
-              <p className="text-lg text-gray-200 italic mb-6">{testimonial.quote}</p>
+              <p className="text-lg text-gray-200 italic mb-6">
+                {testimonial.quote}
+              </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-[#EAB308] to-[#F59E0B] rounded-full flex items-center justify-center text-xl font-bold">
                   {testimonial.name.charAt(0)}
                 </div>
                 <div className="ml-4">
                   <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-400">{testimonial.position}</p>
+                  <p className="text-sm text-gray-400">
+                    {testimonial.position}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -616,7 +683,9 @@ function TestimonialsSection() {
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentTestimonial === index ? "bg-[#EAB308] scale-125" : "bg-white/30"
+                  currentTestimonial === index
+                    ? "bg-[#EAB308] scale-125"
+                    : "bg-white/30"
                 }`}
                 aria-label={`View testimonial ${index + 1}`}
               />
@@ -625,12 +694,12 @@ function TestimonialsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function TrustedAssociatesSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.2 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
 
   return (
     <section ref={ref} className="py-20 px-4">
@@ -645,7 +714,8 @@ function TrustedAssociatesSection() {
             Trusted <span className="text-[#3B82F6]">Associates</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            We collaborate with leading organizations to provide the best solutions
+            We collaborate with leading organizations to provide the best
+            solutions
           </p>
         </motion.div>
 
@@ -668,12 +738,12 @@ function TrustedAssociatesSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
 
 function CTASection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.4 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.4 });
 
   return (
     <section ref={ref} className="py-20 px-4 relative overflow-hidden">
@@ -711,7 +781,9 @@ function CTASection() {
       <div className="container max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          animate={
+            isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+          }
           transition={{ duration: 0.7 }}
           className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-white/10 text-center"
         >
@@ -721,7 +793,8 @@ function CTASection() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
-            Need help starting or growing your <span className="text-[#EAB308]">business</span>?
+            Need help starting or growing your{" "}
+            <span className="text-[#EAB308]">business</span>?
           </motion.h2>
 
           <motion.p
@@ -742,7 +815,8 @@ function CTASection() {
               href="tel:+919111777571"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#EAB308] to-[#F59E0B] text-black px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#EAB308]/30 hover:scale-105 group"
             >
-              <Phone size={20} className="group-hover:animate-pulse" />📲 Book Now
+              <Phone size={20} className="group-hover:animate-pulse" />
+              📲 Book Now
               <motion.span
                 animate={{
                   scale: [1, 1.1, 1],
@@ -759,7 +833,7 @@ function CTASection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
 
 function Footer() {
@@ -772,8 +846,8 @@ function Footer() {
               ANGC <span className="text-[#3B82F6]">Group</span>
             </h3>
             <p className="text-gray-400 max-w-md">
-              A 360-degree business consulting firm dedicated to empowering businesses with strategic solutions and
-              expert guidance.
+              A 360-degree business consulting firm dedicated to empowering
+              businesses with strategic solutions and expert guidance.
             </p>
 
             <div className="flex gap-4 mt-6">
@@ -811,11 +885,17 @@ function Footer() {
                 <Phone className="w-5 h-5 text-[#3B82F6] mt-1" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <a href="tel:+919111777571" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="tel:+919111777571"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     +91 9111777571
                   </a>
                   <br />
-                  <a href="tel:+919475655555" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="tel:+919475655555"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     +91 9475655555
                   </a>
                 </div>
@@ -825,7 +905,10 @@ function Footer() {
                 <Mail className="w-5 h-5 text-[#3B82F6] mt-1" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <a href="mailto:info@angcgroup.com" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="mailto:info@angcgroup.com"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     info@angcgroup.com
                   </a>
                 </div>
@@ -835,12 +918,17 @@ function Footer() {
                 <MapPin className="w-5 h-5 text-[#3B82F6] mt-1" />
                 <div>
                   <p className="font-medium">Address</p>
-                  <p className="text-gray-400">T-9 & T-11, 3rd Floor, City Center, M.P Nagar Zone-1, Bhopal - 462011</p>
+                  <p className="text-gray-400">
+                    T-9 & T-11, 3rd Floor, City Center, M.P Nagar Zone-1, Bhopal
+                    - 462011
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-5 h-5 flex items-center justify-center text-[#3B82F6] mt-1">🕒</div>
+                <div className="w-5 h-5 flex items-center justify-center text-[#3B82F6] mt-1">
+                  🕒
+                </div>
                 <div>
                   <p className="font-medium">Office Hours</p>
                   <p className="text-gray-400">9:00 AM – 6:00 PM</p>
@@ -851,9 +939,11 @@ function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 text-center">
-          <p className="text-gray-400 text-sm">&copy; 2022 ANGC Group India Pvt. Ltd. All Rights Reserved.</p>
+          <p className="text-gray-400 text-sm">
+            &copy; 2022 ANGC Group India Pvt. Ltd. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
